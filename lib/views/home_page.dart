@@ -12,31 +12,31 @@ class HomePage extends StatelessWidget {
       body: GetBuilder<BluetoothController>(
           init: BluetoothController(),
           builder: (controller) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 20 * 3),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        controller.scanDevices();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.blue,
-                        minimumSize: const Size(350, 55),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                        ),
-                      ),
-                      child: const Text(
-                        'Scan',
-                        style: TextStyle(fontSize: 18),
+            return Column(
+              children: [
+                const SizedBox(height: 20 * 3),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      controller.scanDevices();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue,
+                      minimumSize: const Size(350, 55),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                     ),
+                    child: const Text(
+                      'Scan',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
-                  const SizedBox(height: 20),
-                  StreamBuilder<List<ScanResult>>(
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: StreamBuilder<List<ScanResult>>(
                     stream: controller.scanResults,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -71,8 +71,8 @@ class HomePage extends StatelessWidget {
                       }
                     },
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           }),
     );
